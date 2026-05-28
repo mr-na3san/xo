@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f1a" id="themeColor" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="XO Game" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="description" content="Premium XO Tic Tac Toe - Play vs AI or a friend" />
+  <title>XO Game</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body data-theme="dark">
+
+  <div id="loader" class="loader">
+    <div class="loaderInner">
+      <img src="logo.png" alt="XO" class="loaderLogo" />
+      <div class="loaderBar"><div class="loaderFill"></div></div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+
+    <div id="screenMenu" class="screen active">
+      <div class="menuBg">
+        <div class="bgOrb orb1"></div>
+        <div class="bgOrb orb2"></div>
+        <div class="bgOrb orb3"></div>
+      </div>
+      <div class="menuContent">
+        <div class="menuHeader">
+          <img src="logo.png" alt="XO" class="menuLogo" />
+          <h1 class="menuTitle">XO Game</h1>
+          <p class="menuSub">Choose your battle</p>
+        </div>
+        <div class="menuCards">
+          <button class="modeCard" id="btn3x3">
+            <div class="cardIcon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="4" y="4" width="12" height="12" rx="3" fill="currentColor" opacity=".9"/>
+                <rect x="18" y="4" width="12" height="12" rx="3" fill="currentColor" opacity=".6"/>
+                <rect x="32" y="4" width="12" height="12" rx="3" fill="currentColor" opacity=".9"/>
+                <rect x="4" y="18" width="12" height="12" rx="3" fill="currentColor" opacity=".6"/>
+                <rect x="18" y="18" width="12" height="12" rx="3" fill="currentColor" opacity=".3"/>
+                <rect x="32" y="18" width="12" height="12" rx="3" fill="currentColor" opacity=".6"/>
+                <rect x="4" y="32" width="12" height="12" rx="3" fill="currentColor" opacity=".9"/>
+                <rect x="18" y="32" width="12" height="12" rx="3" fill="currentColor" opacity=".6"/>
+                <rect x="32" y="32" width="12" height="12" rx="3" fill="currentColor" opacity=".9"/>
+              </svg>
+            </div>
+            <span class="cardLabel">3 × 3</span>
+            <span class="cardDesc">Classic</span>
+          </button>
+          <button class="modeCard" id="btn4x4">
+            <div class="cardIcon">
+              <svg viewBox="0 0 56 56" fill="none">
+                <rect x="2" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+                <rect x="15" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="28" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+                <rect x="41" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="2" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="15" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity=".3"/>
+                <rect x="28" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="41" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity=".3"/>
+                <rect x="2" y="28" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+                <rect x="15" y="28" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="28" y="28" width="11" height="11" rx="2.5" fill="currentColor" opacity=".3"/>
+                <rect x="41" y="28" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+                <rect x="2" y="41" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="15" y="41" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+                <rect x="28" y="41" width="11" height="11" rx="2.5" fill="currentColor" opacity=".6"/>
+                <rect x="41" y="41" width="11" height="11" rx="2.5" fill="currentColor" opacity=".9"/>
+              </svg>
+            </div>
+            <span class="cardLabel">4 × 4</span>
+            <span class="cardDesc">Extended</span>
+          </button>
+        </div>
+        <div class="vsCards">
+          <button class="vsCard" id="btnVsAI">
+            <div class="vsIcon">
+              <svg viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="10" r="6" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 28c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="24" cy="8" r="4" fill="var(--accent)" />
+                <path d="M22 8h4M24 6v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span>VS AI</span>
+          </button>
+          <button class="vsCard" id="btnVsPlayer">
+            <div class="vsIcon">
+              <svg viewBox="0 0 32 32" fill="none">
+                <circle cx="10" cy="10" r="5" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 26c0-5.523 3.582-10 8-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="22" cy="10" r="5" stroke="currentColor" stroke-width="2"/>
+                <path d="M30 26c0-5.523-3.582-10-8-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span>VS Player</span>
+          </button>
+        </div>
+        <div class="menuControls">
+          <button class="ctrlBtn" id="btnTheme" title="Toggle theme">
+            <svg id="iconSun" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="2" x2="12" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="2" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.93" y1="4.93" x2="6.34" y2="6.34" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="17.66" y1="17.66" x2="19.07" y2="19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.93" y1="19.07" x2="6.34" y2="17.66" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="17.66" y1="6.34" x2="19.07" y2="4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg id="iconMoon" viewBox="0 0 24 24" fill="none" class="hidden">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="ctrlBtn" id="btnSound" title="Toggle sound">
+            <svg id="iconSoundOn" viewBox="0 0 24 24" fill="none">
+              <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg id="iconSoundOff" viewBox="0 0 24 24" fill="none" class="hidden">
+              <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screenGame" class="screen">
+      <div class="gameHeader">
+        <button class="backBtn" id="btnBack">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="scoreboard">
+          <div class="scoreItem" id="scoreX">
+            <span class="scoreMark xMark">
+              <svg viewBox="0 0 20 20" fill="none"><line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="4" x2="4" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="scoreVal" id="valX">0</span>
+          </div>
+          <div class="scoreDraws">
+            <span class="scoreDrawLabel">Draws</span>
+            <span class="scoreVal" id="valDraw">0</span>
+          </div>
+          <div class="scoreItem" id="scoreO">
+            <span class="scoreVal" id="valO">0</span>
+            <span class="scoreMark oMark">
+              <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2.5"/></svg>
+            </span>
+          </div>
+        </div>
+        <button class="restartBtn" id="btnRestart">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 3v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="turnIndicator" id="turnIndicator">
+        <div class="turnInner">
+          <span class="turnMarkX">
+            <svg viewBox="0 0 20 20" fill="none"><line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="4" x2="4" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="turnMarkO">
+            <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2.5"/></svg>
+          </span>
+          <span class="turnText" id="turnText">X's turn</span>
+        </div>
+      </div>
+
+      <div class="boardWrap" id="boardWrap">
+        <div class="board" id="board"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="modalOverlay" class="modalOverlay hidden">
+    <div class="modal" id="modal">
+      <div class="modalIcon" id="modalIcon"></div>
+      <h2 class="modalTitle" id="modalTitle"></h2>
+      <p class="modalMsg" id="modalMsg"></p>
+      <div class="modalBtns" id="modalBtns"></div>
+    </div>
+  </div>
+
+  <div id="installBanner" class="installBanner hidden">
+    <img src="logo.png" alt="" class="installLogo" />
+    <div class="installText">
+      <strong>Install XO Game</strong>
+      <span>Play offline anytime</span>
+    </div>
+    <button id="btnInstall" class="installBtn">Install</button>
+    <button id="btnDismiss" class="installDismiss">
+      <svg viewBox="0 0 16 16" fill="none"><line x1="4" y1="4" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="4" x2="4" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/sw-reg.js"></script>
+</body>
+</html>
