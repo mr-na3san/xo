@@ -14,16 +14,26 @@ const audio = (() => {
       const g = c.createGain();
       g.connect(c.destination);
 
-      if (type === 'place') {
+      if (type === 'placeX') {
         const o = c.createOscillator();
         o.connect(g);
         o.type = 'sine';
-        o.frequency.setValueAtTime(520, c.currentTime);
-        o.frequency.exponentialRampToValueAtTime(680, c.currentTime + 0.08);
+        o.frequency.setValueAtTime(480, c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(620, c.currentTime + 0.09);
         g.gain.setValueAtTime(0.18, c.currentTime);
         g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.18);
         o.start(c.currentTime);
         o.stop(c.currentTime + 0.18);
+      } else if (type === 'placeO') {
+        const o = c.createOscillator();
+        o.connect(g);
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(300, c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(220, c.currentTime + 0.12);
+        g.gain.setValueAtTime(0.2, c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.22);
+        o.start(c.currentTime);
+        o.stop(c.currentTime + 0.22);
       } else if (type === 'win') {
         [0, 0.12, 0.24].forEach((t, i) => {
           const o = c.createOscillator();

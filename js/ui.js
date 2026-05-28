@@ -158,11 +158,13 @@ const ui = (() => {
     });
   };
 
+  let aiLock = false;
+
   const onCellClick = (i) => {
     const st = game.getState();
-    if (st.over || st.aiThinking) return;
+    if (st.over || st.aiThinking || aiLock) return;
 
-    audio.play('place');
+    audio.play('placeX');
     audio.vibrate(15);
 
     const result = game.move(i);
@@ -178,11 +180,13 @@ const ui = (() => {
       setTimeout(() => showGameOver(result), 700);
     } else if (result.type === 'continue') {
       if (game.isAiTurn()) {
+        aiLock = true;
         updateTurn('O', false);
         setTimeout(() => {
           const aiResult = game.doAiMove();
+          aiLock = false;
           if (aiResult) {
-            audio.play('place');
+            audio.play('placeO');
             renderBoard();
             if (aiResult.type === 'win') {
               highlightWin(aiResult.cells);
@@ -248,15 +252,17 @@ const ui = (() => {
   };
 
   const restartGame = () => {
+    aiLock = false;
     game.restart();
     renderBoard();
-    const st = game.getState();
     if (game.isAiTurn()) {
+      aiLock = true;
       updateTurn('O', false);
       setTimeout(() => {
         const aiResult = game.doAiMove();
+        aiLock = false;
         if (aiResult) {
-          audio.play('place');
+          audio.play('placeO');
           renderBoard();
         }
       }, 500);
@@ -269,16 +275,18 @@ const ui = (() => {
   };
 
   const startGame = (opts) => {
+    aiLock = false;
     game.init(opts);
     renderBoard();
     showScreen('Game');
-    const st = game.getState();
     if (game.isAiTurn()) {
+      aiLock = true;
       updateTurn('O', false);
       setTimeout(() => {
         const aiResult = game.doAiMove();
+        aiLock = false;
         if (aiResult) {
-          audio.play('place');
+          audio.play('placeO');
           renderBoard();
         }
       }, 600);
