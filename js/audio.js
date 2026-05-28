@@ -35,16 +35,16 @@ const audio = (() => {
         o.start(c.currentTime);
         o.stop(c.currentTime + 0.22);
       } else if (type === 'win') {
-        [0, 0.12, 0.24].forEach((t, i) => {
+        [0, 0.15, 0.30, 0.50].forEach((t, i) => {
           const o = c.createOscillator();
           o.connect(g);
           o.type = 'triangle';
-          const freqs = [440, 554, 659];
+          const freqs = [440, 554, 659, 880];
           o.frequency.setValueAtTime(freqs[i], c.currentTime + t);
-          g.gain.setValueAtTime(0.2, c.currentTime + t);
-          g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + t + 0.3);
+          g.gain.setValueAtTime(i === 3 ? 0.25 : 0.18, c.currentTime + t);
+          g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + t + 0.4);
           o.start(c.currentTime + t);
-          o.stop(c.currentTime + t + 0.3);
+          o.stop(c.currentTime + t + 0.4);
         });
       } else if (type === 'lose') {
         [0, 0.15].forEach((t, i) => {

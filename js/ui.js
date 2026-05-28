@@ -164,7 +164,8 @@ const ui = (() => {
     const st = game.getState();
     if (st.over || st.aiThinking || aiLock) return;
 
-    audio.play('placeX');
+    const movingPlayer = st.currentPlayer;
+    audio.play(movingPlayer === 'X' ? 'placeX' : 'placeO');
     audio.vibrate(15);
 
     const result = game.move(i);
@@ -174,10 +175,16 @@ const ui = (() => {
 
     if (result.type === 'win') {
       highlightWin(result.cells);
-      setTimeout(() => showGameOver(result), 700);
+      const st2 = game.getState();
+      const isAiWin = st2.vsMode === 'ai' && result.player === 'O';
+      audio.play(isAiWin ? 'lose' : 'win');
+      audio.vibrate(isAiWin ? [50, 30, 50] : [30, 20, 80]);
+      setTimeout(() => showGameOver(result), 1400);
     } else if (result.type === 'draw') {
       highlightDraw();
-      setTimeout(() => showGameOver(result), 700);
+      audio.play('draw');
+      audio.vibrate([20, 20, 20]);
+      setTimeout(() => showGameOver(result), 1000);
     } else if (result.type === 'continue') {
       if (game.isAiTurn()) {
         aiLock = true;
@@ -190,10 +197,14 @@ const ui = (() => {
             renderBoard();
             if (aiResult.type === 'win') {
               highlightWin(aiResult.cells);
-              setTimeout(() => showGameOver(aiResult), 700);
+              audio.play('lose');
+              audio.vibrate([50, 30, 50]);
+              setTimeout(() => showGameOver(aiResult), 1400);
             } else if (aiResult.type === 'draw') {
               highlightDraw();
-              setTimeout(() => showGameOver(aiResult), 700);
+              audio.play('draw');
+              audio.vibrate([20, 20, 20]);
+              setTimeout(() => showGameOver(aiResult), 1000);
             }
           }
         }, 420);
@@ -206,11 +217,8 @@ const ui = (() => {
 
     if (result.type === 'win') {
       const isAiWin = st.vsMode === 'ai' && result.player === 'O';
-      const isPlayerWin = !isAiWin;
 
       if (isAiWin) {
-        audio.play('lose');
-        audio.vibrate([50, 30, 50]);
         showModal({
           icon: svgRobot,
           title: 'AI Wins',
@@ -222,8 +230,6 @@ const ui = (() => {
           ]
         });
       } else {
-        audio.play('win');
-        audio.vibrate([30, 20, 80]);
         showModal({
           icon: svgTrophy,
           title: result.player + ' Wins!',
@@ -236,8 +242,6 @@ const ui = (() => {
         });
       }
     } else {
-      audio.play('draw');
-      audio.vibrate([20, 20, 20]);
       showModal({
         icon: svgDraw,
         title: "It's a Draw",
