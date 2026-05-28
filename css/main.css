@@ -81,35 +81,58 @@ body {
 }
 
 .loaderLogo {
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  box-shadow: 0 0 40px var(--accentGlow), 0 0 80px var(--accentGlow);
   animation: logoPulse 1.5s ease-in-out infinite;
 }
 
 @keyframes logoPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.08); opacity: 0.85; }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px var(--accentGlow); }
+  50% { transform: scale(1.07); box-shadow: 0 0 60px var(--accentGlow), 0 0 100px var(--accentGlow); }
 }
 
 .loaderBar {
-  width: 160px;
-  height: 3px;
-  background: var(--surface);
+  width: 200px;
+  height: 5px;
+  background: rgba(255,255,255,0.07);
   border-radius: 99px;
   overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 .loaderFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--oColor));
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #a78bfa, var(--oColor));
+  background-size: 200% 100%;
   border-radius: 99px;
-  animation: loaderAnim 1.2s ease-in-out forwards;
+  animation: loaderGrow 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+             loaderShimmer 1.3s linear infinite;
+  box-shadow: 0 0 12px var(--accentGlow), 0 0 4px rgba(255,255,255,0.4);
 }
 
-@keyframes loaderAnim {
+@keyframes loaderGrow {
   0% { width: 0; }
+  60% { width: 80%; }
   100% { width: 100%; }
+}
+
+@keyframes loaderShimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.loaderName {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--textMuted);
+  margin-top: -8px;
 }
 
 .app {
